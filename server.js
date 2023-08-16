@@ -13,9 +13,6 @@ let year = date_ob.getFullYear();
 // prints date & time in YYYY-MM-DD format
 let current_date = year + "-" + month + "-" + date;
 
-
-
-
 let message_id = 0
 let users = []; //the json goes here
   
@@ -28,7 +25,7 @@ app.post('/send', async (req, res) => {
     const sender = queryParams.sender || 'Unknown';
     const receiver = queryParams.receiver || 'Unknown';
     const message = queryParams.message || 'none'
-    users.push({ ID: message_id, Name: receiver, Unreaded: `${message} [${current_date} from ${sender}]`, Message: `${message} [${current_date} from ${sender}]`});
+    users.push({ Id: message_id, Name: receiver, Unreaded: `${message} [${current_date} from ${sender}]`, Message: `${message} [${current_date} from ${sender}]`});
     message_id = message_id + 1
     console.log(users);
   } catch (err) {
@@ -50,6 +47,8 @@ app.get('/new/:id', async (req, res) => {
 
 app.get('/msg/:id', async (req, res) => {
   try {
+    var index = users.findIndex(obj => obj.Id==req.params.id);
+    console.log(index);
     const filteredData = JSON.parse(JSON.stringify(users.filter(item => item.Name === req.params.id)));
     const unreadedArray = filteredData.map(item => item.Message);
     res.status(200).send(unreadedArray);
@@ -58,6 +57,19 @@ app.get('/msg/:id', async (req, res) => {
     console.error(err.message);
   }
 });
+
+app.get('/delete/:id', async (req, res) => {
+  try {
+    const unreadedArray = filteredData.map(item => item.ID);
+    res.status(200).send(unreadedArray);
+  } catch (err) {
+    res.status(400).send(err.message);
+    console.error(err.message);
+  }
+});
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
