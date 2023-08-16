@@ -38,8 +38,8 @@ app.get('/send', async (req, res) => {
 app.get('/new/:id', async (req, res) => {
     try {
       const filteredData = JSON.parse(JSON.stringify(users.filter(item => item.Name === req.params.id)));
-      console.log(filteredData[0].Unreaded); //[].Unreaded or something however it returns an error
-      res.status(200).send(filteredData);
+      const unreadedArray = filteredData.map(item => item.Unreaded);
+      res.status(200).send(unreadedArray);
     } catch (err) {
       res.status(400).send("error:", err.message);
       console.error(err.message);
