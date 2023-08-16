@@ -48,7 +48,7 @@ app.get('/new/:id', async (req, res) => {
 app.get('/msg/:id', async (req, res) => {
   try {
     var index = users.findIndex(obj => obj.Id==req.params.id);
-    console.log(index);
+    delete users[index-1];
     const filteredData = JSON.parse(JSON.stringify(users.filter(item => item.Name === req.params.id)));
     const unreadedArray = filteredData.map(item => item.Message);
     res.status(200).send(unreadedArray);
