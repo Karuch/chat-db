@@ -47,8 +47,6 @@ app.get('/new/:id', async (req, res) => {
 
 app.get('/msg/:id', async (req, res) => {
   try {
-    var index = users.findIndex(obj => obj.Id==req.params.id);
-    delete users[index-1];
     const filteredData = JSON.parse(JSON.stringify(users.filter(item => item.Name === req.params.id)));
     const unreadedArray = filteredData.map(item => item.Message);
     res.status(200).send(unreadedArray);
@@ -58,10 +56,11 @@ app.get('/msg/:id', async (req, res) => {
   }
 });
 
-app.get('/delete/:id', async (req, res) => {
+app.delete('/delete/:id', async (req, res) => {
   try {
-    const unreadedArray = filteredData.map(item => item.ID);
-    res.status(200).send(unreadedArray);
+    var index = users.findIndex(obj => obj.Id==req.params.id);
+    delete users[index-1];
+    res.status(200).send("success!");
   } catch (err) {
     res.status(400).send(err.message);
     console.error(err.message);
