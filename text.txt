@@ -1,0 +1,4 @@
+?sender=Tal&reciever=Maor&message=hello
+
+
+http://localhost:5000/hello/?sender=tal&receiver=maor&message=hello%20tal
