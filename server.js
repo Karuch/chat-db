@@ -17,11 +17,7 @@ let current_date = year + "-" + month + "-" + date;
 
 
 
-const users = [
-    { Name: "Tal", Message: ["A", "B"], Unreaded: ["C", "D"]},
-    { Name: "Maor", Message: ["A", "B"], Unreaded: ["C", "D"]}
-
-  ];
+let users = []; //the json goes here
   
 app.use(cors());
 
@@ -37,12 +33,14 @@ app.get('/send', async (req, res) => {
     res.status(400).send(err.message);
     console.error(err.message);
   } 
-  console.log(users);
 });
 
-app.get('/hello', async (req, res) => {
+app.get('/new/:id', async (req, res) => {
     try {
-      res.status(200).send("hello world");
+      console.log(users);
+      const filteredData = users.filter(item => item.Name === req.params.id);
+      console.log(filteredData); //[].Unreaded or something however it returns an error
+      res.status(200).send(req.params.id);
     } catch (err) {
       res.status(400).send("error:", err.message);
       console.error(err.message);
