@@ -1,8 +1,8 @@
 CREATE DATABASE messages;
 
 CREATE TABLE Messages_table (
-    _Id int,
-    _Name varchar(255),
-    _Unreaded varchar(255),
-    _Message varchar(255),
+    _id int,
+    _name varchar(255),
+    _unreaded varchar(255),
+    _message varchar(255),
 );
