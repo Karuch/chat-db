@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require("cors");
 const url = require('url');
+const pool = require("./db");
 const port = 5000
 
 // current timestamp in milliseconds
@@ -74,6 +75,41 @@ app.delete('/delete/:id', async (req, res) => {
     console.error(err.message);
   }
 });
+
+
+
+
+app.get('/db', async (req, res) => {
+  try {
+    const queryParams = req.query;
+    const sender = queryParams.sender || 'Unknown';
+    const receiver = queryParams.receiver || 'Unknown';
+    const message = queryParams.message || 'none'
+    const full_message = `${message} [${current_date} from ${sender}]`
+    const get_max_id = await pool.query("SELECT MAX(_Id) FROM Messages_table");
+    const push = await pool.query(`INSERT INTO Messages_table (_Id, _Name, _Unreaded, _Message) 
+                                   VALUES (${get_max_id.rows[0].max + 1}, '${receiver}', '${full_message}', '${full_message}')`);  
+    res.status(200).send("success!");
+  } catch (err) {
+    res.status(400).send(err.message); 
+    console.error(err.message);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
