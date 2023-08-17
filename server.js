@@ -49,6 +49,9 @@ app.get('/msg/:id', async (req, res) => {
   try {
     const filteredData = JSON.parse(JSON.stringify(users.filter(item => item.Name === req.params.id)));
     const unreadedArray = filteredData.map(item => item.Message);
+    for (const [key, value] of Object.entries(filteredData)){
+      console.log(filteredData[key].Id);
+    }
     res.status(200).send(unreadedArray);
   } catch (err) {
     res.status(400).send(err.message);
@@ -66,6 +69,7 @@ app.delete('/delete/:id', async (req, res) => {
     console.error(err.message);
   }
 });
+
 
 
 
