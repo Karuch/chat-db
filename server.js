@@ -50,7 +50,9 @@ app.get('/msg/:id', async (req, res) => {
     const filteredData = JSON.parse(JSON.stringify(users.filter(item => item.Name === req.params.id)));
     const unreadedArray = filteredData.map(item => item.Message);
     for (const [key, value] of Object.entries(filteredData)){
-      console.log(filteredData[key].Id);
+      index_remove_from_unreaded = users.findIndex(obj => obj.Id==filteredData[key].Id);
+      delete users[index_remove_from_unreaded].Unreaded;
+      console.log(users);
     }
     res.status(200).send(unreadedArray);
   } catch (err) {
