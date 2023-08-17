@@ -38,6 +38,10 @@ app.get('/new/:id', async (req, res) => {
     try {
       const filteredData = JSON.parse(JSON.stringify(users.filter(item => item.Name === req.params.id)));
       const unreadedArray = filteredData.map(item => item.Unreaded);
+      for (const [key, value] of Object.entries(filteredData)){
+        index_remove_readed = users.findIndex(obj => obj.Id==filteredData[key].Id);
+        delete users[index_remove_readed].Unreaded;
+      }
       res.status(200).send(unreadedArray);
     } catch (err) {
       res.status(400).send(err.message);
@@ -52,7 +56,6 @@ app.get('/msg/:id', async (req, res) => {
     for (const [key, value] of Object.entries(filteredData)){
       index_remove_readed = users.findIndex(obj => obj.Id==filteredData[key].Id);
       delete users[index_remove_readed].Unreaded;
-      console.log(users);
     }
     res.status(200).send(DataArray);
   } catch (err) {
@@ -71,10 +74,6 @@ app.delete('/delete/:id', async (req, res) => {
     console.error(err.message);
   }
 });
-
-
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
