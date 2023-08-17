@@ -1,5 +1,0 @@
-?sender=Tal&reciever=Maor&message=hello
-
-
-http://localhost:5000/send/?sender=maor&receiver=tal&message=hello_tal
-http://localhost:5000/new/tal
