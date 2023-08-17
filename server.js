@@ -83,7 +83,7 @@ app.delete('/delete/:id', async (req, res) => {
 
 
 
-app.get('/db_send', async (req, res) => {
+app.post('/db_send', async (req, res) => {
   try {
     const queryParams = req.query;
     const sender = queryParams.sender || 'Unknown';
@@ -116,6 +116,16 @@ app.delete('/db_delete/:id', async (req, res) => {
 });
 
 
+
+app.get('/db_msg/:id', async (req, res) => {
+  try {
+    const db = await pool.query(`SELECT _message FROM Messages_table WHERE _name='${req.params.id}'`);
+    res.status(200).send(db.rows);
+  } catch (err) {
+    res.status(400).send(err.message);
+    console.error(err.message);
+  }
+});
 
 
 
