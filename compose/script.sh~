@@ -1,0 +1,6 @@
+container_name_or_id="db"
+
+# Run docker inspect and store the result in a variable
+ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$container_name_or_id")
+echo $ip
+IP="$ip"
