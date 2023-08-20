@@ -3,7 +3,7 @@ const Pool = require("pg").Pool;
 const pool = new Pool({
   user: "postgres",
   password: "1598",
-  host: "localhost",
+  host: "localhost", //need to be changed to db IP
   port: 5432,
   database: "messages"
 });
